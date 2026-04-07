@@ -1,5 +1,2 @@
-build = "npm run build"
-start = "node dist/main.js"
-
-[nixpacks]
-node_version = "18"
+build = "npm run build && npm run start:prod"
+start = ""
