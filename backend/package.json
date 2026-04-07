@@ -4,6 +4,7 @@
   "description": "Car Showroom Backend with NestJS",
   "author": "Developer",
   "private": true,
+  "main": "dist/main.js",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
