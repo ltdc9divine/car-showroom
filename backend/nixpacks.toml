@@ -1,9 +1,5 @@
-[build]
-  command = "npm run build"
-  builder = "nixpacks"
+build = "npm run build"
+start = "node dist/main.js"
 
-[run]
-  start = "node dist/main.js"
-
-[variables]
-  NODE_ENV = "production"
+[nixpacks]
+node_version = "18"
