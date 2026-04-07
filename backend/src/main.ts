@@ -7,13 +7,13 @@ async function bootstrap() {
 
   // ✅ Enable CORS (production + local)
   app.enableCors({
-    origin: [
-      "http://localhost:3000",
-      "http://localhost:3001",
-      "https://your-app.vercel.app" // 👉 sửa lại sau khi deploy frontend
-    ],
-    credentials: true,
-  });
+  origin: [
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "https://car-showroom-frontend-one.vercel.app"
+  ],
+  credentials: true,
+});
 
   // ✅ Global validation
   app.useGlobalPipes(
