@@ -25,7 +25,7 @@ export class PaymentsService {
     try {
       const unitAmount = currency.toLowerCase() === 'vnd' ? Math.round(amount) : Math.round(amount * 100);
 
-const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+const frontendUrl = process.env.FRONTEND_URL || 'https://car-showroom-frontend-one.vercel.app';
 
       const session = await this.stripe.checkout.sessions.create({
         payment_method_types: ['card'],
