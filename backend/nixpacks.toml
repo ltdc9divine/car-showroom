@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  builder = "nixpacks"
+
+[run]
+  start = "node dist/main.js"
+
+[variables]
+  NODE_ENV = "production"
