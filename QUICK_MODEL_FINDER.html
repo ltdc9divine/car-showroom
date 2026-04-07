@@ -1,0 +1,163 @@
+<!-- Quick Model Finder - Browser Console Script -->
+<!-- Mở DevTools (F12) trên trang https://sketchfab.com và chạy script này -->
+
+<script>
+// ========================================
+// Sketchfab Model URL Finder
+// ========================================
+// Paste script này vào browser console (F12)
+// để tìm kiếm và lấy đường dẫn GLB của các model
+
+const cars = [
+  'Lamborghini Aventador SVJ',
+  'Ferrari SF90 Stradale', 
+  'Bugatti Chiron Super Sport',
+  'Porsche 911 GT3 RS',
+  'McLaren P1',
+  'Rolls-Royce Spectre',
+  'Aston Martin Valkyrie',
+  'Mercedes-AMG One',
+  'Lamborghini Huracan STO',
+  'Ferrari 296 GTB',
+  'Porsche Taycan Turbo S',
+  'McLaren 720S'
+];
+
+const SKETCHFAB_API = 'https://api.sketchfab.com/v3';
+
+async function searchCarModel(carName) {
+  try {
+    const query = encodeURIComponent(carName);
+    const url = `${SKETCHFAB_API}/search?q=${query}&type=models&downloadable=true&limit=5`;
+    
+    const response = await fetch(url);
+    const data = await response.json();
+    
+    if (data.results && data.results.length > 0) {
+      const model = data.results[0];
+      return {
+        carName,
+        modelName: model.name,
+        modelUrl: `https://sketchfab.com/models/${model.uid}`,
+        author: model.user.username,
+        thumbnailUrl: model.thumbnailUrl,
+        uid: model.uid,
+      };
+    }
+    return null;
+  } catch (error) {
+    console.error(`Error searching for ${carName}:`, error);
+    return null;
+  }
+}
+
+async function findAllModels() {
+  console.log('🔍 Tìm kiếm các model 3D...\n');
+  const results = {};
+  
+  for (const car of cars) {
+    const result = await searchCarModel(car);
+    if (result) {
+      results[car] = result.modelUrl;
+      console.log(`✅ ${car}`);
+      console.log(`   Model: ${result.modelName}`);
+      console.log(`   Author: ${result.author}`);
+      console.log(`   Link: ${result.modelUrl}\n`);
+    } else {
+      console.log(`❌ ${car} - Không tìm thấy\n`);
+    }
+    
+    // Delay 500ms để tránh rate limiting
+    await new Promise(resolve => setTimeout(resolve, 500));
+  }
+  
+  // Output code cho car-models.ts
+  console.log('\n========================================');
+  console.log('📋 COPY CODE DỮ LIỆU CHO car-models.ts');
+  console.log('========================================\n');
+  
+  let code = 'export const CAR_3D_MODELS: Record<string, string> = {\n';
+  for (const [car, url] of Object.entries(results)) {
+    code += `  '${car}': '${url}',\n`;
+  }
+  code += '};\n';
+  
+  console.log(code);
+  console.log('\nCopy đoạn code trên và dán vào src/lib/car-models.ts');
+}
+
+// Chạy
+findAllModels();
+</script>
+
+<!-- HOẶC CÁCH 2: Manual Download (Nhanh hơn) -->
+
+<!-- Hướng dẫn tìm model thủ công:
+
+1. Mở Sketchfab: https://sketchfab.com
+
+2. Tìm kiếm từng xe:
+   - Lamborghini Aventador
+   - Ferrari SF90
+   - Bugatti Chiron
+   - etc...
+
+3. Filter kết quả:
+   ✓ Downloadable
+   ✓ Sort by Most Relevant
+
+4. Chọn model tốt nhất (detail cao, file nhỏ):
+
+   ===== SUGGESTED MODELS =====
+   
+   Lamborghini Aventador:
+   - Title: "CAR LAMBORGHINI AVENTADO"
+   - Author: nguyenbeo190
+   - URL: https://sketchfab.com/3d-models/car-lamborghini-aventado-cabf176c0d834f40abd5e7392602c2a4
+   
+   Bugatti Chiron:
+   - Title: "Bugatti Chiron Sport 2019"
+   - Author: SQUIR3D  
+   - URL: https://sketchfab.com/3d-models/bugatti-chiron-sport-2019-04c5e3cad9bb49509fa44f16dbee24d8
+   
+   Ferrari:
+   - Title: "2018 Ferrari SP38 (Deborah)"
+   - Author: ddiaz-design
+   - URL: https://sketchfab.com/3d-models/2018-ferrari-sp38-deborah-9a60f56481d7485f9e374dc9471c9e99
+
+5. Untuk masing-masing model:
+   a. Buka halaman model
+   b. Klik "Download" (kanan atas)
+   c. Pilih "glTF Binary (.glb)"
+   d. Download file
+   
+   Atau ambil direct GLB URL:
+   - Buka browser DevTools (F12)
+   - Cari di Network tab ketika page load
+   - Cari .glb file
+   - Copy URL
+
+6. Upload ke server Anda:
+   - Copy .glb file ke /public/models/cars/
+   - Atau upload ke CDN
+   - Get public URL
+
+7. Update src/lib/car-models.ts:
+   export const CAR_3D_MODELS = {
+     'Lamborghini Aventador SVJ': 'https://yourdomain.com/models/cars/lamborghini.glb',
+     ...
+   };
+-->
+
+<!-- CÁCH 3: Quick Copy-Paste URLs -->
+<!--
+Nếu các trang sau còn hoạt động, có thể copy trực tiếp:
+
+1. Lamborghini Aventador:
+   https://media.sketchfab.com/models/CAR LAMBORGHINI/model.glb
+
+2. Bugatti Chiron:
+   https://media.sketchfab.com/models/BUGATTI CHIRON/model.glb
+
+Note: URLs có thể thay đổi, cần test
+-->

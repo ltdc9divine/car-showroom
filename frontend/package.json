@@ -1,0 +1,38 @@
+{
+  "name": "car-showroom-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@stripe/react-stripe-js": "^2.4.0",
+    "@stripe/stripe-js": "^3.0.0",
+    "@types/three": "^0.183.1",
+    "axios": "^1.6.0",
+    "next": "^14.2.5",
+    "next-image-export-optimizer": "^1.17.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-icons": "^4.12.0",
+    "swr": "^2.4.1",
+    "three": "^0.183.2",
+    "zustand": "^4.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "autoprefixer": "^10.4.16",
+    "critters": "^0.0.23",
+    "eslint": "^10.1.0",
+    "eslint-config-next": "^16.2.2",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5.0.0"
+  }
+}
